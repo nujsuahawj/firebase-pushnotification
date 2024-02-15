@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::patch('/fcm-token', [HomeController::class, 'updateToken'])->name('fcmToken');
+Route::post('/send-notification',[HomeController::class,'notification'])->name('notification');
+Route::post('/send-noti',[HomeController::class,'test'])->name('test');
