@@ -79,47 +79,6 @@
         </main>
     </div>
 
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyCTSdnZHKPtwLw33uejbuLbVy-MTUDDv9Y",
-            authDomain: "hmong99-test.firebaseapp.com",
-            projectId: "hmong99-test",
-            storageBucket: "hmong99-test.appspot.com",
-            messagingSenderId: "137157008178",
-            appId: "1:137157008178:web:28c3b3dd8bf44cbcdb152b",
-            // measurementId: "G-JFM0VYFF12"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-
-        const messaging = firebase.messaging();
-
-        function initFirebaseMessagingRegistration() {
-            messaging.requestPermission().then(function () {
-                return messaging.getToken()
-            }).then(function(token) {
-
-                axios.post("{{ route('fcmToken') }}",{
-                    _method:"PATCH",
-                    token
-                }).then(({data})=>{
-                    console.log(data)
-                }).catch(({response:{data}})=>{
-                    console.error(data)
-                })
-
-            }).catch(function (err) {
-                console.log(`Token Error :: ${err}`);
-            });
-        }
-
-        initFirebaseMessagingRegistration();
-
-        messaging.onMessage(function({data:{body,title}}){
-            new Notification(title, {body});
-        });
-    </script>
 
 </body>
 </html>
